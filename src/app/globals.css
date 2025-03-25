@@ -1,0 +1,142 @@
+@import "tailwindcss";
+@import "../styles/scrollbar-hide.css";
+
+:root {
+  --background: #000000;
+  --foreground: #FFFFFF;
+  --primary: #FF00FF;
+  --secondary: #7B00FF;
+  --accent: #FF00FF;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-primary: var(--primary);
+  --color-secondary: var(--secondary);
+  --color-accent: var(--accent);
+  --font-sans: var(--font-geist-sans);
+  --font-mono: var(--font-geist-mono);
+}
+
+/* Splash screen animations */
+@keyframes circuit-flow {
+  0% {
+    stroke-dashoffset: 1000;
+    opacity: 0.3;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    stroke-dashoffset: 0;
+    opacity: 0.3;
+  }
+}
+
+@keyframes fade-in-up {
+  0% {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  100% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fade-out-up {
+  0% {
+    opacity: 1;
+    transform: translateY(0);
+  }
+  100% {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+}
+
+@keyframes splash-out {
+  0% {
+    transform: scale(1);
+    opacity: 1;
+  }
+  100% {
+    transform: scale(1.5);
+    opacity: 0;
+  }
+}
+
+.splash-circuit {
+  stroke-dasharray: 1000;
+  stroke-dashoffset: 1000;
+  animation: circuit-flow 5s ease-in-out forwards;
+}
+
+.splash-container {
+  transform-style: preserve-3d;
+  perspective: 1000px;
+}
+
+.splash-exit {
+  animation: splash-out 0.8s cubic-bezier(0.65, 0, 0.35, 1) forwards;
+}
+
+@keyframes pulse-glow {
+  0% {
+    box-shadow: 0 0 10px 0 var(--primary);
+  }
+  50% {
+    box-shadow: 0 0 20px 3px var(--primary), 0 0 30px 5px var(--secondary);
+  }
+  100% {
+    box-shadow: 0 0 10px 0 var(--primary);
+  }
+}
+
+/* Glow effect for interactive 3D elements */
+.glow-effect {
+  animation: glow-pulse 2s infinite;
+  transition: all 0.3s ease;
+}
+
+@keyframes glow-pulse {
+  0% {
+    filter: drop-shadow(0 0 8px rgba(123, 0, 255, 0.5));
+  }
+  50% {
+    filter: drop-shadow(0 0 15px rgba(255, 0, 255, 0.7)) drop-shadow(0 0 25px rgba(123, 0, 255, 0.5));
+  }
+  100% {
+    filter: drop-shadow(0 0 8px rgba(123, 0, 255, 0.5));
+  }
+}
+
+body {
+  background: var(--background);
+  color: var(--foreground);
+  font-family: var(--font-sans);
+}
+
+/* Styling for scroll behavior */
+html {
+  scroll-behavior: smooth;
+}
+
+/* Custom scrollbar for webkit browsers */
+::-webkit-scrollbar {
+  width: 8px;
+}
+
+::-webkit-scrollbar-track {
+  background: #111111;
+}
+
+::-webkit-scrollbar-thumb {
+  background: linear-gradient(to bottom, var(--primary), var(--secondary));
+  border-radius: 4px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+  background: linear-gradient(to bottom, var(--secondary), var(--primary));
+}

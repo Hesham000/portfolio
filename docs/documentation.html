@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Modern Portfolio Documentation</title>
+    <style>
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+            line-height: 1.6;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            color: #333;
+        }
+        h1, h2, h3 {
+            color: #1a1a2e;
+            margin-top: 2em;
+        }
+        code {
+            background: #f4f4f8;
+            padding: 2px 5px;
+            border-radius: 4px;
+            font-family: 'Courier New', Courier, monospace;
+        }
+        pre {
+            background: #f4f4f8;
+            padding: 15px;
+            border-radius: 8px;
+            overflow-x: auto;
+        }
+        .highlight {
+            background: #fff3cd;
+            padding: 15px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>Modern Portfolio Documentation</h1>
+        
+        <div class="highlight">
+            <h2>Quick Start</h2>
+            <pre><code>git clone [repository-url]
+cd portfolio
+npm install
+npm run dev</code></pre>
+            <p>Visit <code>http://localhost:3000</code> to view the application.</p>
+        </div>
+
+        <h2>Project Overview</h2>
+        <p>A modern portfolio website built with Next.js 14, TypeScript, and Three.js, featuring stunning 3D animations and interactive elements. The site showcases professional projects through an elegant and responsive design.</p>
+
+        <h2>Technology Stack</h2>
+        <ul>
+            <li><strong>Framework:</strong> Next.js 14</li>
+            <li><strong>Language:</strong> TypeScript</li>
+            <li><strong>3D Graphics:</strong> Three.js</li>
+            <li><strong>Styling:</strong> Tailwind CSS</li>
+            <li><strong>Animations:</strong> Framer Motion</li>
+            <li><strong>Build Tool:</strong> npm</li>
+        </ul>
+
+        <h2>Features</h2>
+        <h3>1. Interactive 3D Models</h3>
+        <ul>
+            <li>Custom Three.js implementations</li>
+            <li>Responsive 3D scenes</li>
+            <li>Performance-optimized rendering</li>
+            <li>Touch and mouse interaction support</li>
+        </ul>
+
+        <h3>2. Project Showcase</h3>
+        <ul>
+            <li>Category-based filtering</li>
+            <li>Animated transitions</li>
+            <li>Responsive grid layout</li>
+            <li>Project details modal</li>
+        </ul>
+
+        <h3>3. Skills Section</h3>
+        <ul>
+            <li>3D helix animation</li>
+            <li>Interactive skill categories</li>
+            <li>Dynamic skill highlighting</li>
+        </ul>
+
+        <h3>4. Contact Form</h3>
+        <ul>
+            <li>Animated background</li>
+            <li>Form validation</li>
+            <li>Success/error states</li>
+        </ul>
+
+        <h2>Project Structure</h2>
+        <pre><code>portfolio/
+├── src/
+│   ├── app/              # Next.js app directory
+│   │   ├── 3d/          # Three.js components
+│   │   ├── features/    # Feature components
+│   │   ├── layout/      # Layout components
+│   │   └── shared/      # Shared components
+│   ├── context/         # React context
+│   ├── hooks/           # Custom hooks
+│   ├── interfaces/      # TypeScript interfaces
+│   └── styles/          # Global styles
+├── public/              # Static assets
+└── docs/               # Documentation</code></pre>
+
+        <h2>Setup Instructions</h2>
+        <h3>Prerequisites</h3>
+        <ul>
+            <li>Node.js 18.17 or later</li>
+            <li>npm or yarn package manager</li>
+        </ul>
+
+        <h3>Installation Steps</h3>
+        <ol>
+            <li>Clone the repository:
+                <pre><code>git clone [repository-url]</code></pre>
+            </li>
+            <li>Navigate to the project directory:
+                <pre><code>cd portfolio</code></pre>
+            </li>
+            <li>Install dependencies:
+                <pre><code>npm install</code></pre>
+            </li>
+            <li>Start the development server:
+                <pre><code>npm run dev</code></pre>
+            </li>
+        </ol>
+
+        <h3>Build for Production</h3>
+        <pre><code>npm run build
+npm start</code></pre>
+
+        <h2>Development Guidelines</h2>
+        <h3>Code Style</h3>
+        <ul>
+            <li>Use TypeScript for type safety</li>
+            <li>Follow ESLint configuration</li>
+            <li>Use Prettier for code formatting</li>
+        </ul>
+
+        <h3>Component Structure</h3>
+        <ul>
+            <li>Maintain single responsibility principle</li>
+            <li>Use custom hooks for logic separation</li>
+            <li>Follow atomic design principles</li>
+        </ul>
+
+        <h3>Performance Optimization</h3>
+        <ul>
+            <li>Implement lazy loading for heavy components</li>
+            <li>Optimize 3D models and textures</li>
+            <li>Use Next.js Image component for images</li>
+            <li>Implement proper code splitting</li>
+        </ul>
+
+        <h2>Deployment</h2>
+        <p>The project is configured for deployment on Vercel, but can be deployed to any platform that supports Next.js applications.</p>
+
+        <h3>Deployment Steps</h3>
+        <ol>
+            <li>Build the project:
+                <pre><code>npm run build</code></pre>
+            </li>
+            <li>Test the production build locally:
+                <pre><code>npm start</code></pre>
+            </li>
+            <li>Deploy to your chosen platform</li>
+        </ol>
+
+        <h2>Contributing</h2>
+        <ol>
+            <li>Fork the repository</li>
+            <li>Create a feature branch</li>
+            <li>Commit your changes</li>
+            <li>Push to the branch</li>
+            <li>Create a Pull Request</li>
+        </ol>
+
+        <h2>License</h2>
+        <p>This project is licensed under the MIT License - see the LICENSE file for details.</p>
+
+        <h2>Support</h2>
+        <p>For support, please open an issue in the GitHub repository or contact the maintainers directly.</p>
+    </div>
+</body>
+</html> 

@@ -99,7 +99,7 @@ export default function AnimatedSection({
         <motion.div
           initial="hidden"
           whileInView="visible"
-          viewport={{ once, threshold, margin: "-100px" }}
+          viewport={{ once, amount: threshold, margin: "-100px" }}
           variants={{
             visible: {
               opacity: 1,
@@ -122,7 +122,7 @@ export default function AnimatedSection({
       <motion.div
         initial="hidden"
         whileInView="visible"
-        viewport={{ once, threshold, margin: "-100px" }}
+        viewport={{ once, amount: threshold, margin: "-100px" }}
         variants={contentVariants}
       >
         {children}

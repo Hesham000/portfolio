@@ -64,7 +64,7 @@ export default function AnimatedSection({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, threshold }}
+      viewport={{ once, amount: threshold }}
       variants={variants}
     >
       {children}

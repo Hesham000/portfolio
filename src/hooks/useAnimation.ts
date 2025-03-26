@@ -4,23 +4,41 @@ import { useReducedMotion } from "framer-motion";
 import { 
   CombinedAnimationProps, 
   ANIMATION_PRESETS, 
-  ViewportOptions,
   AnimationDirection
 } from "@/types/animation";
+import { useScroll, useTransform, useSpring, useMotionValue, useVelocity, useAnimationFrame } from "framer-motion";
+import { useEffect } from "react";
 
 // Interface Segregation - creating small, focused interfaces for animation variants
 interface AnimationVariants {
-  hidden: Record<string, any>;
-  visible: Record<string, any>;
+  hidden: Record<string, number | string>;
+  visible: Record<string, number | string>;
 }
 
 interface AnimationConfig {
-  variants: AnimationVariants;
-  initial: string;
-  animate?: string;
-  whileInView?: string;
-  viewport?: ViewportOptions;
-  transition?: Record<string, any>;
+  stiffness?: number;
+  damping?: number;
+  mass?: number;
+}
+
+interface ScrollConfig {
+  offset?: number;
+  smooth?: boolean;
+  stiffness?: number;
+  damping?: number;
+}
+
+interface ParallaxConfig {
+  offset?: number;
+  speed?: number;
+  stiffness?: number;
+  damping?: number;
+}
+
+interface SpringConfig {
+  stiffness?: number;
+  damping?: number;
+  mass?: number;
 }
 
 // Customizable hook that follows ISP by creating focused animation presets
@@ -34,7 +52,6 @@ export function useAnimation(
     delay?: number;
     ease?: number[];
     shouldAnimate?: boolean;
-    viewport?: ViewportOptions;
     useWhileInView?: boolean;
   } = {}
 ): AnimationConfig {
@@ -48,18 +65,15 @@ export function useAnimation(
     delay = 0,
     ease = [0.25, 0.1, 0.25, 1],
     shouldAnimate = true,
-    viewport = { once: true, threshold: 0.2 },
     useWhileInView = true
   } = options;
   
   // Don't animate if user prefers reduced motion
   if (prefersReducedMotion || !shouldAnimate) {
     return {
-      variants: {
-        hidden: { opacity: 1 },
-        visible: { opacity: 1 }
-      },
-      initial: "visible",
+      stiffness: 100,
+      damping: 30,
+      mass: 1
     };
   }
   
@@ -68,7 +82,7 @@ export function useAnimation(
   
   if (preset === "custom" && customAnimation) {
     animationProps = customAnimation;
-  } else if (ANIMATION_PRESETS[preset]) {
+  } else if (preset !== "custom" && ANIMATION_PRESETS[preset]) {
     animationProps = ANIMATION_PRESETS[preset];
     
     // Allow overriding specific properties from the preset
@@ -109,9 +123,9 @@ export function useAnimation(
   }
   
   // Construct variant objects
-  const hidden: Record<string, any> = {};
-  const visible: Record<string, any> = {};
-  const transition: Record<string, any> = {};
+  const hidden: Record<string, number | string> = {};
+  let visible: Record<string, any> = {};
+  const transition: Record<string, number | number[] | string> = {};
   
   // Add fade properties
   if (animationProps.fade) {
@@ -154,6 +168,15 @@ export function useAnimation(
     visible.rotate = animationProps.rotation.targetRotation ?? 0;
   }
   
+  // Add properties to visible state
+  Object.entries(hidden).forEach(([key, value]) => {
+    if (typeof value === "number") {
+      visible[key] = 0;
+    } else if (Array.isArray(value)) {
+      visible[key] = value.map(() => 0);
+    }
+  });
+
   // Add transition to visible
   visible.transition = transition;
   
@@ -167,10 +190,72 @@ export function useAnimation(
   }
   
   return {
-    variants: { hidden, visible },
-    initial: "hidden",
-    ...(useWhileInView 
-      ? { whileInView: "visible", viewport } 
-      : { animate: "visible" }),
+    stiffness: 100,
+    damping: 30,
+    mass: 1
   };
+}
+
+export function useScrollAnimation(config: AnimationConfig = {}) {
+  const { stiffness = 100, damping = 30, mass = 1 } = config;
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  useEffect(() => {
+    const handleMouseMove = (event: MouseEvent) => {
+      x.set(event.clientX);
+      y.set(event.clientY);
+    };
+
+    window.addEventListener("mousemove", handleMouseMove);
+    return () => window.removeEventListener("mousemove", handleMouseMove);
+  }, [x, y]);
+
+  const springX = useSpring(x, { stiffness, damping, mass });
+  const springY = useSpring(y, { stiffness, damping, mass });
+
+  return { x: springX, y: springY };
+}
+
+export function useScrollParallax(config: ScrollConfig = {}) {
+  const { offset = 0, stiffness = 100, damping = 30 } = config;
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, offset]);
+  const springY = useSpring(y, { stiffness, damping });
+
+  return config.smooth === false ? y : springY;
+}
+
+export function useParallax(config: ParallaxConfig = {}) {
+  const { offset = 50, speed = 1, stiffness = 100, damping = 30 } = config;
+  const { scrollY } = useScroll();
+  const y = useTransform(scrollY, [0, 1000], [0, offset * speed]);
+
+  return useSpring(y, { stiffness, damping });
+}
+
+export function useSpringAnimation(config: SpringConfig = {}) {
+  const { stiffness = 100, damping = 30, mass = 1 } = config;
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const springX = useSpring(x, { stiffness, damping, mass });
+  const springY = useSpring(y, { stiffness, damping, mass });
+
+  return { x: springX, y: springY };
+}
+
+export function useVelocityAnimation() {
+  const x = useMotionValue(0);
+  const y = useMotionValue(0);
+
+  const velocityX = useVelocity(x);
+  const velocityY = useVelocity(y);
+
+  useAnimationFrame((t) => {
+    x.set(Math.sin(t / 1000) * 100);
+    y.set(Math.cos(t / 1000) * 100);
+  });
+
+  return { x: velocityX, y: velocityY };
 } 

@@ -50,15 +50,16 @@ export default function NeonText({
     },
     flicker: {
       textShadow: [
-        `0 0 7px ${glowColor}, 0 0 10px ${glowColor}, 0 0 21px ${glowColor}`,
-        `0 0 7px ${glowColor}${Math.floor(flickerIntensity * 255).toString(16)}, 0 0 10px ${glowColor}${Math.floor(flickerIntensity * 200).toString(16)}`,
-        `0 0 7px ${glowColor}, 0 0 10px ${glowColor}, 0 0 21px ${glowColor}`,
+        `0 0 4px ${glowColor}`,
+        `0 0 11px ${glowColor}`,
+        `0 0 19px ${glowColor}`,
+        `0 0 4px ${glowColor}`,
       ],
       transition: {
-        duration: 0.2,
+        duration: 0.1,
         repeat: Infinity,
-        repeatType: "reverse",
-        repeatDelay: 5,
+        repeatType: "loop" as const,
+        repeatDelay: 0.5,
       },
     },
   };

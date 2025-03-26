@@ -321,7 +321,7 @@ export default function ProjectsModel({
       showcase.gridGroup.children.forEach((cell, index) => {
         const offset = index * 0.1;
         const pulse = Math.sin(elapsedTime * 2 + offset) * 0.5 + 0.5;
-        (cell.material as THREE.MeshBasicMaterial).opacity = 0.1 + pulse * 0.2;
+        ((cell as THREE.Mesh).material as THREE.MeshBasicMaterial).opacity = 0.1 + pulse * 0.2;
       });
       
       // Particles animation

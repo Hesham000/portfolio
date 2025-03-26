@@ -327,7 +327,7 @@ export default function SkillsSphere({
       // Highlight active category if set
       if (displayCategory) {
         connectionLines.children.forEach((line) => {
-          const material = line.material as THREE.LineBasicMaterial;
+          const material = ((line as THREE.Line).material as THREE.LineBasicMaterial);
           if (line.userData.category === displayCategory) {
             material.opacity += (0.8 - material.opacity) * 0.1;
           } else {
@@ -345,7 +345,7 @@ export default function SkillsSphere({
       } else {
         // Reset all opacities and scales if no active category
         connectionLines.children.forEach((line) => {
-          const material = line.material as THREE.LineBasicMaterial;
+          const material = ((line as THREE.Line).material as THREE.LineBasicMaterial);
           material.opacity += (0.3 - material.opacity) * 0.1;
         });
         

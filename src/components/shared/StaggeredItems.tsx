@@ -79,7 +79,7 @@ export default function StaggeredItems({
       className={className}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, threshold }}
+      viewport={{ once, amount: threshold }}
       variants={containerVariants}
     >
       {childArray.map((child, index) => (

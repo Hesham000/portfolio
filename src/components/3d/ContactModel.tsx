@@ -92,7 +92,7 @@ export default function ContactModel({ width = 400, height = 300, className = ""
     group.add(grid);
 
     // Add floating UI elements
-    const uiElements = [];
+    const uiElements: THREE.Mesh[] = [];
     for (let i = 0; i < 5; i++) {
       const geometry = new THREE.BoxGeometry(0.2, 0.2, 0.1);
       const material = new THREE.MeshPhongMaterial({

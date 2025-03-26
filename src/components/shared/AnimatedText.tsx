@@ -62,7 +62,7 @@ export default function AnimatedText({
       variants={container}
       initial="hidden"
       whileInView="visible"
-      viewport={{ once, threshold }}
+      viewport={{ once, amount: threshold }}
     >
       {type === "word" ? (
         <span className="inline-flex flex-wrap">
